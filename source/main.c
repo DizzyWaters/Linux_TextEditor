@@ -5,13 +5,17 @@
 
 
 
-#define DX 8
-#define DY 8
+#define DX 12
+#define DY 12
 
+// keys
+#define SPACEBAR 32
 
+// make linked list
+// OR count lines in file and then load it to char**
   struct MyStr
   {
-    char *line;
+    char **line;
     size_t len;
     ssize_t nread;
   };
@@ -40,8 +44,6 @@ int main(int argc, char *argv[])
   size_t lineLen;
   
 
-
-
   WINDOW *frame, *win;
   int c = 0;
 
@@ -60,16 +62,20 @@ int main(int argc, char *argv[])
   keypad(win, TRUE);
   scrollok(win, TRUE);
 
-  while(getline(&curLine, &lineLen, fp) != -1)
+  int lineCounter = 1;
+  while((c = wgetch(win)) != 27)
   {
-    wprintw(win, "%s", curLine);
+  if(c == SPACEBAR)
+  {
+    if(getline(&curLine, &lineLen, fp) != -1)
+      {
+        wprintw(win, "%d : %s", lineCounter,curLine);
+        lineCounter++;
+      }
   }
-
-  if((c = wgetch(win)) == 27)
-  {
+  }
   delwin(win);
   delwin(frame);
-  }
   endwin();
   return 0;
 }
