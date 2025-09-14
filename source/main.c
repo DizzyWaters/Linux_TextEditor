@@ -20,6 +20,22 @@
     ssize_t nread;
   };
 
+  int fLinesCounter(FILE *fp)
+{ 
+  int result = 0;
+  char endline = '\n';
+  char c;
+  while((c = fgetc(fp)) != EOF)
+  {
+    if(c == endline)
+    {
+      result++;
+    }
+  }
+  rewind(fp);
+  return result;
+}
+
 int main(int argc, char *argv[])
 {
 
@@ -43,6 +59,9 @@ int main(int argc, char *argv[])
   char* curLine;
   size_t lineLen;
   
+  // count lines
+  int linesInFILE = fLinesCounter(fp);
+  //int linesInFILE = 1;
 
   WINDOW *frame, *win;
   int c = 0;
@@ -50,7 +69,7 @@ int main(int argc, char *argv[])
   initscr();
   noecho();
   cbreak();
-  printw("Window:");
+  printw("Window: filename: %s Lines in file: %d", argv[1], linesInFILE);
   refresh();
   
   frame = newwin(LINES - 2*DY, COLS - 2*DX, DY, DX);
