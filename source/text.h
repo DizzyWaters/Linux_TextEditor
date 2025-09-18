@@ -31,7 +31,7 @@ int freeDstring(D_string *str);
 int createEmptyD_TEXT(D_TEXT *text);
 int resizeD_TEXT(D_TEXT *text);
 int load_D_TEXT(FILE *fp, D_TEXT *text);
-int free_D_TEXT();
+int free_D_TEXT(D_TEXT *text);
 int free_D_string(D_string *str);
 
 

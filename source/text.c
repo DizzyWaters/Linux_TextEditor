@@ -103,8 +103,7 @@ int load_D_TEXT(FILE *fp, D_TEXT *text)
 {
     int i = text->linesUsed;
     int t_size = text->linesAllocated;
-    int flag = loadLine(fp, &text->linesArray[i]);
-
+    int flag;
     
     for(;;)
     {
